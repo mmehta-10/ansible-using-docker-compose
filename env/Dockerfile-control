@@ -71,4 +71,7 @@ RUN /usr/sbin/update-rc.d -f ondemand remove; \
 ENV container docker
 
 EXPOSE 22
+
+USER ansible:ansible
+
 CMD ["/sbin/init"]
