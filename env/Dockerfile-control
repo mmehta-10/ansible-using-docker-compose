@@ -4,7 +4,6 @@ FROM alpine:latest
 # COPY RBSGlobalG1RootCA.crt /var/tmp
 # COPY RBSGlobalG1IssuingCA.crt /var/tmp
 
-
 RUN apk add --no-cache --update wget ca-certificates unzip python3 py3-pip openssl bash curl openssh sudo git tzdata jq coreutils openssh-server && \
 apk --no-cache --update add --virtual build-dependencies python3-dev libffi-dev openssl-dev build-base cairo-dev cargo freetype-dev rust && \
 pip --no-cache install --upgrade pip cffi && \
@@ -29,6 +28,10 @@ COPY ansible /home/ansible/.ssh/id_rsa
 COPY ansible.pub /home/ansible/.ssh/id_rsa.pub
 COPY ansible.pub /home/ansible/.ssh/authorized_keys
 
-# CMD ["tail", "-f", "/dev/null"]
+RUN adduser -D ansible --disabled-password && \
+chown -R ansible:ansible /home/ansible/  && \
+  echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers 
+
+USER ansible:ansible
 
 CMD ["bash"]
