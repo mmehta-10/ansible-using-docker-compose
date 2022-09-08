@@ -18,7 +18,7 @@ services:
     stdin_open: true
     command: bash
     networks:
-      - build-network    
+      - build-network
   lb:
     container_name: lb
     build: ./env

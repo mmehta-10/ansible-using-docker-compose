@@ -23,17 +23,18 @@ COPY ansible.pub /home/ansible/.ssh/id_rsa.pub
 COPY ansible.pub /home/ansible/.ssh/authorized_keys
 RUN /usr/bin/ssh-keygen -A
 
+
 RUN chown -R ansible:ansible /home/ansible/ && \
   echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
   touch /etc/sysconfig/network
 
+RUN /usr/sbin/sshd
+
 ENV container docker
 
 EXPOSE 22
-# RUN systemctl start sshd
-# RUN /usr/sbin/sshd -D
 
 USER ansible:ansible
 
-CMD ["/sbin/init"]
-# CMD ["/usr/sbin/sshd", "-D"]
+CMD ["tail", "-f", "/dev/null"]
+# CMD ["/usr/sbin/sshd"]
