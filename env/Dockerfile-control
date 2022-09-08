@@ -74,4 +74,6 @@ EXPOSE 22
 
 USER ansible:ansible
 
+WORKDIR /home/ansible
+
 CMD ["/sbin/init"]
