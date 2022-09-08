@@ -16,6 +16,9 @@ COPY ansible /home/ansible/.ssh/id_rsa
 COPY ansible.pub /home/ansible/.ssh/id_rsa.pub
 COPY ansible.pub /home/ansible/.ssh/authorized_keys
 
+# RUN grep -q "ChallengeResponseAuthentication" /etc/ssh/sshd_config && sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" /etc/ssh/sshd_config || echo "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config && \	
+#   grep -q "^[^#]*PasswordAuthentication" /etc/ssh/sshd_config && sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" /etc/ssh/sshd_config || echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+
 RUN chown -R ansible:ansible /home/ansible/  && \
   echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers 
   # && \
