@@ -28,13 +28,14 @@ RUN chown -R ansible:ansible /home/ansible/ && \
   echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
   touch /etc/sysconfig/network
 
-RUN /usr/sbin/sshd
+# RUN /usr/sbin/sshd
 
 ENV container docker
 
 EXPOSE 22
 
+CMD ["/usr/sbin/sshd"]
+
 USER ansible:ansible
 
 CMD ["tail", "-f", "/dev/null"]
-# CMD ["/usr/sbin/sshd"]
