@@ -7,46 +7,31 @@ services:
       dockerfile: Dockerfile-control
     hostname: control
     links:
-      - lb
-      - web1
-      - web2
+      - amh1
+      - amh2
     ports:
       - "2200:22"
     volumes:
       - ./ansible:/home/ansible/ansible
     tty: true
     stdin_open: true
-    command: bash
+    # command: bash
     networks:
       - build-network
-  lb:
-    container_name: lb
+  amh1:
+    container_name: amh1
     build: ./env
-    hostname: lb
-    links:
-      - web1
-      - web2
+    hostname: amh1
     ports:
       - "2201:22"
-      - "8001:80"
     networks:
       - build-network
-  web1:
-    container_name: web1
+  amh2:
+    container_name: amh2
     build: ./env
-    hostname: web1
+    hostname: amh2
     ports:
       - "2211:22"
-      - "8081:80"
-    networks:
-      - build-network
-  web2:
-    container_name: web2
-    build: ./env
-    hostname: web2
-    ports:
-      - "2212:22"
-      - "8082:80"
     networks:
       - build-network
 networks:
