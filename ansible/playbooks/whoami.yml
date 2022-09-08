@@ -6,4 +6,4 @@
       shell: whoami
       register: output
 
-    - debug: var=output
+    - debug: var=output.stdout
