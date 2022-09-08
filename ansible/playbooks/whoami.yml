@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: check whoami
+      shell: whoami
+      register: output
+
+    - debug: var=output
