@@ -19,9 +19,7 @@ echo -e "Host * \HostkeyAlgorithms +ssh-rsa \n PubkeyAcceptedAlgorithms +ssh-rsa
 # update-ca-certificates && \
 # cp /var/tmp/RBSGlobalG1IssuingCA.crt /usr/local/share/ca-certificates && \
 # update-ca-certificates && \
-rm -rf /var/cache/apk/* && \
-mkdir -p /home/ansible/.ssh/ && \
-  chmod 0700 /home/ansible/.ssh/
+rm -rf /var/cache/apk/* 
 
 COPY ssh_config /home/ansible/.ssh/config
 COPY ansible /home/ansible/.ssh/id_rsa
@@ -29,9 +27,11 @@ COPY ansible.pub /home/ansible/.ssh/id_rsa.pub
 COPY ansible.pub /home/ansible/.ssh/authorized_keys
 
 RUN adduser -D ansible --disabled-password && \
-chown -R ansible:ansible /home/ansible/  && \
+  mkdir -p /home/ansible/.ssh/ && \
+  chmod 0700 /home/ansible/.ssh/ && \
+  chown -R ansible:ansible /home/ansible/  && \
   echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers 
 
 USER ansible:ansible
 
-CMD ["bash"]
+ENTRYPOINT ["bash"]

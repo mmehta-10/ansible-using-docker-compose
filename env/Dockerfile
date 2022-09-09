@@ -17,9 +17,7 @@ COPY ansible.pub /home/ansible/.ssh/id_rsa.pub
 COPY ansible.pub /home/ansible/.ssh/authorized_keys
 
 RUN chown -R ansible:ansible /home/ansible/  && \
-  echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers 
-  # && \
-  # touch /etc/sysconfig/network
+  echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 ENV container docker
 
